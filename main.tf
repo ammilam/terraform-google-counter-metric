@@ -40,12 +40,3 @@ locals {
     ]
   )
 }
-
-resource "time_sleep" "wait_for_metric" {
-  create_duration = "15s"
-
-  triggers = {
-    # This sets up a proper dependency on the RAM association
-    metric_id = google_logging_metric.counter_metric.id
-  }
-}
