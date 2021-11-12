@@ -20,7 +20,8 @@ Metrics can be defined with one or more `labels` placed under the `labels` defin
 
 ```terraform
 module "metric" {
-  source            = "git::https://gitlab.gcp.company.com/shared-services/monitoring.git//modules/counter-metric?ref=<most-recent-tag>"
+  source            = "ammilam/counter-metric/google"
+  version           = "0.1.2"
   metric_project_id = "" # project_id for the logging metric
   metric_name       = "" # metric name
   filter            = "" # filter for the logging metric
@@ -34,7 +35,11 @@ module "metric" {
     },
   ]
 }
-
+module "counter-metric" {
+  source  = "ammilam/counter-metric/google"
+  version = "0.1.1"
+  # insert the 4 required variables here
+}
 ```
 
 ### Example Counter Metric Implementation
@@ -53,10 +58,11 @@ module "metric" {
 # performing a particular action on a given resource                       #
 ############################################################################
 module "example_metric" {
-  source            = ""git::https://gitlab.gcp.company.com/shared-services/monitoring.git//modules/counter-metric?ref=<most-recent-tag>"
+  source            = "ammilam/counter-metric/google"
+  version           = "0.1.2"
   metric_project_id = "test"                                                       # project_id for the logging metric
   metric_name       = "user-invoked-method"                                                 # metric name
-  filter            = "protoPayload.authenticationInfo.principalEmail=~\"(.*)@company.com\"" # filter for the logging metric
+  filter            = "protoPayload.authenticationInfo.principalEmail=~\"(.*)@example.com\"" # filter for the logging metric
   labels = [
     {
       key                = "email"                                          # creates email label
