@@ -90,31 +90,3 @@ module "billing_metric" {
   ]
 }
 ```
-
-### Using distribution Metric In Alert Policy
-
-The distribution metric module has an output called `distribution_metric_id` that outputs the name of the logging metric. Below is an example alert policy that references the example metric above. TLDR: `metric.type=\"logging.googleapis.com/user/${module.example_metric.distribution_metric_id}\"`
-
-```terraform
-module "logging_metric_demo_alert" {
-  source                       = "<source>"
-  enabled                      = true
-  application                  = "shared-services"
-  channel_type                 = "google_chat" # sets the channel_type that is used to find the appropriate escalation path
-  alert_route                  = "demo"    # specifies the actual route for the notification once a channel_type is set
-  monitoring_project_id        = var.monitoring_project_id
-  display_name                 = "I am a test alert and trigger when a resource is accessed" # policy display name
-  pub_sub_notification_channel = var.channel
-  content                      = "$${metric.label.email} has invoked $${metric.label.parsed_method} method in Project $${resource.project}"
-  alert_conditions = [
-    {
-      duration               = "0s"                                                                                                                     # duration in seconds : 300s
-      alignment_period       = "36000s"                                                                                                                 # alignment period in seconds : 900s
-      group_by_fields        = ["resource.project_id", "metric.email", "metric.parsed_method"]                                                          # used for alert message creation : ["resource.project_id"]
-      threshold_count        = 0                                                                                                                        # threshold_percent can be used as well : 0
-      filter                 = "metric.type=\"logging.googleapis.com/user/${module.example_metric.distribution_metric_id}\" resource.type=\"audited_resource\"" # filter for alert policy
-      condition_display_name = "Project Resource Accessed"                                                                                              # name for threshold condition
-    },
-  ]
-}
-```
