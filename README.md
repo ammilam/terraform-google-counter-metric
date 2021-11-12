@@ -1,6 +1,6 @@
 # Counter Google Logging Metric Module
 
-This folder contains the Counter Google Logging Metric module. For information on google logging metrics, refer to the following [documentation](https://cloud.google.com/logging/docs/logs-based-metrics).
+This module creates a Counter Google Logging Metric. For information on google logging metrics, refer to the following [documentation](https://cloud.google.com/logging/docs/logs-based-metrics).
 
 This module is intended to simplify the counter logging metric resource creation via terraform. Documentation on the actual terraform resource definition can be found [here](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/logging_metric).
 
