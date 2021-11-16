@@ -21,7 +21,7 @@ Metrics can be defined with one or more `labels` placed under the `labels` defin
 ```terraform
 module "metric" {
   source            = "ammilam/counter-metric/google"
-  version           = "0.1.2"
+  version           = "<most-recent-tag>"
   metric_project_id = "" # project_id for the logging metric
   metric_name       = "" # metric name
   filter            = "" # filter for the logging metric
@@ -35,11 +35,7 @@ module "metric" {
     },
   ]
 }
-module "counter-metric" {
-  source  = "ammilam/counter-metric/google"
-  version = "0.1.1"
-  # insert the 4 required variables here
-}
+
 ```
 
 ### Example Counter Metric Implementation
