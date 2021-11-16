@@ -25,7 +25,7 @@ locals {
   metric_labels = toset([
     for metric_label in var.labels : {
       key                = tostring(metric_label.key)
-      label_value_type   = tostring(metric_label.label_value_type)
+      label_value_type   = tostring(try(metric_label.label_value_type, "STRING"))
       description        = tostring(metric_label.description)
       extractor          = tostring(can(metric_label.regex) ? "REGEXP_EXTRACT" : "EXTRACT")
       regex              = tostring(try(metric_label.regex, ""))
