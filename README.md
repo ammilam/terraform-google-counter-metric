@@ -88,4 +88,3 @@ module "example_metric" {
   ]
 }
 ```
-
